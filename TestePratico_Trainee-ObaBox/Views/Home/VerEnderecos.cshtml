@@ -1,0 +1,33 @@
+﻿@{ 
+    ViewBag.Title = "Listagem de Endereços";
+}
+
+
+<div class="container">
+    <h2 class="text-center">Listagem de Endereços</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th width="10%">ID</th>
+                <th width="20%">Cliente</th>
+                <th>Endereço</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        @{ 
+            for(int i = 0; i < ViewBag.verEnderecos.Rows.Count; i++)
+            {
+                var currentRow = ViewBag.verEnderecos.Rows[i];
+                <tr>
+                    <td data-name="id">@currentRow["id"].ToString()</td>
+                    <td data-name="cliente">@currentRow["cliente"].ToString()</td>
+                    <td data-name="endereco">@currentRow["endereco"].ToString()</td>
+                    <td class="text-center">
+                        @Html.ActionLink("Editar", "EditarEndereco", new { id = currentRow["id"] }, new { @class = "btn btn-info" })
+                        <button deletarEndereco class="btn btn-danger">Deletar</button>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

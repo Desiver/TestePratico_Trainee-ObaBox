@@ -1,0 +1,32 @@
+﻿@{ 
+    ViewBag.Title = "Listagem de Compras";
+}
+
+
+<div class="container">
+    <h2 class="text-center">Listagem de Compras</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th width="20%">Loja</th>
+                <th width="20%">Cliente</th>
+                <th>Endereço</th>
+                <th class="text-center">#</th>
+            </tr>
+        </thead>
+        @{ 
+            for(int i = 0; i < ViewBag.verCompras.Rows.Count; i++)
+            {
+                var currentRow = ViewBag.verCompras.Rows[i];
+                <tr data-idLoja="@currentRow["loja_id"]" data-idCliente="@currentRow["cliente_id"]" data-idEndereco="@currentRow["endereco_id"]">
+                    <td data-name="loja">@currentRow["nome_loja"].ToString()</td>
+                    <td data-name="cliente">@currentRow["nome_cliente"].ToString()</td>
+                    <td data-name="endereco">@currentRow["endereco"].ToString()</td>
+                    <td class="text-center">
+                        <button deletarCompra class="btn btn-danger">Deletar</button>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

@@ -1,0 +1,40 @@
+﻿@{ 
+    ViewBag.Title = "Listagem de Clientes";
+}
+
+<div class="container">
+    <h2 class="text-center">Listagem de Clientes</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th width="10%">ID</th>
+                <th width="20%">Nome</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>Data de Nascimento</th>
+                <th>Ativo</th>
+                <th class="text-center">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                for (int i = 0; i < ViewBag.verClientes.Rows.Count; i++)
+                {
+                    var currentRow = ViewBag.verClientes.Rows[i];
+                    <tr>
+                        <td data-name="id">@currentRow["id"].ToString()</td>
+                        <td data-name="nome">@currentRow["nome"].ToString()</td>
+                        <td data-name="cpf" data-mask="000.000.000-00">@currentRow["cpf"].ToString()</td>
+                        <td data-name="rg" data-mask="00.000-000">@currentRow["rg"].ToString()</td>
+                        <td data-name="dt_nasc" class="dateModifier">@currentRow["dt_nasc"].ToString()</td>
+                        <td data-name="ativo">@(Convert.ToBoolean(currentRow["ativo"]) ? "Sim" : "Não")</td>
+                        <td class="text-center">
+                            @Html.ActionLink("Editar", "EditarCliente", new { id = currentRow["id"] }, new { @class = "btn btn-info" })
+                            <button deletarCliente class="btn btn-danger">Deletar</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,40 @@
+﻿@model TestePratico_Trainee_ObaBox.Models.Cliente
+
+@{
+    ViewBag.Title = "Editar Cliente";
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="text-center">Editar Cliente</h2>
+        @using (Html.BeginForm())
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, "Nome")
+                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cpf, "CPF")
+                    @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Rg, "RG")
+                    @Html.EditorFor(model => model.Rg, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Dt_nasc, "Data de Nascimento") 
+                    @Html.EditorFor(model => model.Dt_nasc, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Ativo, "Ativo")
+                    @Html.EditorFor(model => model.Ativo)
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                    @Html.ActionLink("Voltar", "VerClientes", "Home", new { }, new { @class = "btn btn-info" })
+                </div>
+            </div>
+        }
+    </div>
+</div>
