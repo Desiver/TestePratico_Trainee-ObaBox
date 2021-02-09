@@ -61,26 +61,15 @@ namespace TestePratico_Trainee_ObaBox.Models
         }
         public void Inserir(Cliente cliente)
         {
-            Comando($@"INSERT INTO {tabela}(nome, cpf, rg, dt_nasc)
-                              VALUES( 
-                                    '{cliente.Nome}',
-                                    '{cliente.Cpf}',
-                                    '{cliente.Rg}',
-                                    '{Convert.ToDateTime(cliente.Dt_nasc).ToString("yyyy-MM-dd HH:mm:ss")}')", conn);
+            Comando($"CALL InserirCliente('{cliente.Nome}', '{cliente.Cpf}', '{cliente.Rg}', '{Convert.ToDateTime(cliente.Dt_nasc).ToString("yyyy-MM-dd HH:mm:ss")}')", conn);
         }
         public void Alterar(Cliente cliente)
         {
-            Comando($@"UPDATE {tabela} SET 
-                                    Nome = '{cliente.Nome}',
-                                    Cpf = '{cliente.Cpf}',
-                                    Rg = '{cliente.Rg}',
-                                    Dt_nasc = '{cliente.Dt_nasc.ToString("yyyy-MM-dd HH:mm:ss")}',
-                                    Ativo = {(cliente.Ativo ? 1 : 0)}
-                        WHERE id = {cliente.Id}", conn);
+            Comando($"CALL AlterarCliente('{cliente.Nome}', '{cliente.Cpf}', '{cliente.Rg}', '{Convert.ToDateTime(cliente.Dt_nasc).ToString("yyyy-MM-dd HH:mm:ss")}', {(cliente.Ativo ? 1 : 0)}, {cliente.Id})", conn);
         }
         public void Apagar(int identificador)
         {
-            Comando($@"DELETE FROM {tabela} WHERE id = {identificador}", conn);
+            Comando($"CALL DeletarCliente({identificador})", conn);
         }
     }
 }

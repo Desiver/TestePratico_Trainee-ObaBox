@@ -62,8 +62,7 @@ namespace TestePratico_Trainee_ObaBox.Models
             }).ToList();
         }
         public void Inserir(Endereco endereco) {
-            Comando($@"INSERT INTO {tabela} 
-                              VALUES(null, 
+            Comando($@"CALL InserirEndereco( 
                                     '{endereco.Cliente_id}', 
                                     '{endereco.Logradouro}', 
                                     '{endereco.Numero}', 
@@ -73,18 +72,18 @@ namespace TestePratico_Trainee_ObaBox.Models
                                     '{endereco.Cep}')", conn);
         }
         public void Alterar(Endereco endereco) {
-            Comando($@"UPDATE {tabela} SET 
-                                    cliente_id = {endereco.Cliente_id},
-                                    logradouro = '{endereco.Logradouro}',
-                                    numero = '{endereco.Numero}',
-                                    complemento = '{endereco.Complemento}',
-                                    cidade = '{endereco.Cidade}',
-                                    uf = '{endereco.Uf}',
-                                    cep = '{endereco.Cep}'
-                        WHERE id = {endereco.Id}", conn);
+            Comando($@"CALL AlterarEndereco(
+                                    {endereco.Cliente_id},
+                                    '{endereco.Logradouro}',
+                                    '{endereco.Numero}',
+                                    '{endereco.Complemento}',
+                                    '{endereco.Cidade}',
+                                    '{endereco.Uf}',
+                                    '{endereco.Cep}',
+                                    {endereco.Id})", conn);
         }
         public void Apagar(int identificador) {
-            Comando($@"DELETE FROM {tabela} WHERE id = {identificador}", conn);
+            Comando($@"CALL DeletarEndereco({identificador})", conn);
         }
 
     }

@@ -33,7 +33,7 @@ namespace TestePratico_Trainee_ObaBox.ViewModel
 
         public void Apagar(int idLoja, int idCliente, int idEndereco)
         {
-            Comando($"DELETE FROM loja_has_cliente WHERE loja_id = {idLoja} AND cliente_id = {idCliente} AND endereco_id = {idEndereco}", conn);
+            Comando($"CALL DeletarCompra({idLoja}, {idCliente}, {idEndereco})", conn);
         }
     }
 }

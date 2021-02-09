@@ -27,7 +27,7 @@ namespace TestePratico_Trainee_ObaBox.Models
 
         public void CadastrarCompra(int loja, int cliente, int endereco)
         {
-            Comando($"INSERT INTO loja_has_cliente VALUES('{loja}', '{cliente}', '{endereco}')", conn);
+            Comando($"CALL InserirCompra('{loja}', '{cliente}', '{endereco}')", conn);
         }
         public bool VerificarCompra(int loja, int cliente, int endereco) 
             => 

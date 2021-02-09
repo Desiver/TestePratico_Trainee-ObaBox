@@ -109,6 +109,211 @@ CREATE TABLE IF NOT EXISTS `trainee_obabox`.`verCompras` (`nome_loja` INT, `loja
 CREATE TABLE IF NOT EXISTS `trainee_obabox`.`verEnderecos` (`id` INT, `cliente` INT, `endereco` INT);
 
 -- -----------------------------------------------------
+-- procedure InserirCliente
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`InserirCliente`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE InserirCliente(IN p_nome NVARCHAR(50), IN p_cpf NVARCHAR(50), IN p_rg NVARCHAR(50), IN p_dt_nasc DATETIME)
+BEGIN
+INSERT INTO cliente(nome, cpf, rg, dt_nasc)
+		VALUES(p_nome, p_cpf, p_rg, p_dt_nasc);
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure AlterarUsuario
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`AlterarUsuario`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE AlterarUsuario(IN p_nome NVARCHAR(50), IN p_cpf NVARCHAR(50), IN p_rg NVARCHAR(50), IN p_dt_nasc DATETIME, IN p_ativo BIT(1), IN p_id INT)
+BEGIN
+UPDATE cliente SET  nome = p_nome,
+					cpf = p_cpf,
+                    rg = p_rg,
+                    dt_nasc = p_dt_nasc,
+                    ativo = p_ativo 
+				WHERE id = p_id;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure DeletarUsuario
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`DeletarUsuario`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE DeletarUsuario(IN p_id INT)
+BEGIN
+UPDATE cliente SET  nome = p_nome,
+					cpf = p_cpf,
+                    rg = p_rg,
+                    dt_nasc = p_dt_nasc,
+                    ativo = p_ativo 
+				WHERE id = p_id;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure AlterarCliente
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`AlterarCliente`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE AlterarCliente(IN p_nome NVARCHAR(50), IN p_cpf NVARCHAR(50), IN p_rg NVARCHAR(50), IN p_dt_nasc DATETIME, IN p_ativo BIT(1), IN p_id INT)
+BEGIN
+UPDATE cliente SET  nome = p_nome,
+					cpf = p_cpf,
+                    rg = p_rg,
+                    dt_nasc = p_dt_nasc,
+                    ativo = p_ativo 
+				WHERE id = p_id;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure DeletarCliente
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`DeletarCliente`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE DeletarCliente(IN p_id INT)
+BEGIN
+DELETE FROM cliente WHERE id = p_id;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure InserirEndereco
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`InserirEndereco`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE InserirEndereco(IN p_cliente_id INT, IN p_logradouro VARCHAR(50), IN p_numero VARCHAR(15), IN p_complemento VARCHAR(40), IN p_cidade VARCHAR(40), IN p_uf VARCHAR(2), IN p_cep varchar(10))
+BEGIN
+INSERT INTO endereco
+		VALUES(null, p_cliente_id, p_logradouro, p_numero, p_complemento, p_cidade, p_uf, p_cep);
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure AlterarEndereco
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`AlterarEndereco`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE AlterarEndereco(IN p_cliente_id INT, IN p_logradouro VARCHAR(50), IN p_numero VARCHAR(15), IN p_complemento VARCHAR(40), IN p_cidade VARCHAR(40), IN p_uf VARCHAR(2), IN p_cep varchar(10), IN p_id INT)
+BEGIN
+UPDATE endereco SET  cliente_id = p_cliente_id,
+					logradouro = p_logradouro,
+                    numero = p_numero,
+                    complemento = p_complemento,
+                    cidade = p_cidade,
+                    uf = p_uf,
+                    cep = p_cep
+				WHERE id = p_id;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure DeletarEndereco
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`DeletarEndereco`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE DeletarEndereco(IN p_id INT)
+BEGIN
+DELETE FROM endereco WHERE id = p_id;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure CadastrarCompra
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`CadastrarCompra`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE CadastrarCompra(IN p_loja INT, IN p_cliente INT, IN p_endereco INT)
+BEGIN
+INSERT INTO loja_has_cliente
+		VALUES(p_loja, p_cliente, p_endereco);
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure DeletarCompra
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`DeletarCompra`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE DeletarCompra(IN p_loja INT, IN p_cliente INT, IN p_endereco INT)
+BEGIN
+DELETE FROM loja_has_cliente 
+	WHERE loja_id = p_loja 
+	AND cliente_id = p_cliente 
+    AND endereco_id = p_endereco;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure InserirCompra
+-- -----------------------------------------------------
+
+USE `trainee_obabox`;
+DROP procedure IF EXISTS `trainee_obabox`.`InserirCompra`;
+
+DELIMITER $$
+USE `trainee_obabox`$$
+CREATE PROCEDURE InserirCompra(IN p_loja INT, IN p_cliente INT, IN p_endereco INT)
+BEGIN
+INSERT INTO loja_has_cliente
+		VALUES(p_loja, p_cliente, p_endereco);
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
 -- View `trainee_obabox`.`verCompras`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `trainee_obabox`.`verCompras`;
